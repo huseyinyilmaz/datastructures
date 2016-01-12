@@ -77,3 +77,7 @@ coverage.xml
 
 .hypothesis
 .ipynb_checkpoints
+
+scala/target
+scala/project/target
+scala/.ensime_cache
