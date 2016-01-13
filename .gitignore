@@ -80,4 +80,5 @@ coverage.xml
 
 scala/target
 scala/project/target
+scala/project/project/target/
 scala/.ensime_cache
