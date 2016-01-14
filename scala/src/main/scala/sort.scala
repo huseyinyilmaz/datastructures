@@ -1,4 +1,12 @@
+import scala.annotation.tailrec
+
 object Sorts{
+
+
+///////////////////////////////////////////////////////
+// Destructive quick sort algorithm.                 //
+// Implements Lomuto partition scheme for quicksort. //
+///////////////////////////////////////////////////////
 
   def quicksort[A] (xs: Array[A])(implicit ord: Ordering[A]): Array[A] = {
 
@@ -30,6 +38,13 @@ object Sorts{
     _quicksort(0, xs.length-1)
   }
 
+
+
+/////////////////////////////////////////////////////
+// Destructive quick sort algorithm.               //
+// Implements Hoare partition scheme for quicksort //
+/////////////////////////////////////////////////////
+
   def quicksort2[A] (xs: Array[A])(implicit ord: Ordering[A]): Array[A] = {
 
     def swap(i: Int, j: Int): Unit = {
@@ -59,6 +74,55 @@ object Sorts{
     _quicksort(0, xs.length-1)
   }
 
+//////////////////////////
+// TopDown merge sort   //
+//////////////////////////
+  def mergeSort1[A: scala.reflect.ClassTag]
+    (xs: Array[A])(implicit ord: Ordering [A]): Array[A] = xs match{
+    case Array() => Array()
+    case Array(a) => Array(a)
+    case _ => {
+    def _merge (xs: List[A], ys: List[A]): List[A] = (xs, ys) match {
+      case (Nil, ys) => ys
+      case (xs, Nil) => xs
+      case(x::xs, y::ys) =>
+        if(ord.lt(x,y)) x::_merge(xs, y::ys)
+        else y::_merge(x::xs, ys)
+    }
 
+    val pivot = xs.length/2
+    val (firstHalf, secondHalf) = xs.splitAt(pivot)
+    _merge(mergeSort1(firstHalf).toList, mergeSort1(secondHalf).toList).toArray[A]
+  }
+}
+
+//////////////////////////
+// Bottom up merge sort //
+//////////////////////////
+  def mergeSort2 [A: scala.reflect.ClassTag]
+    (a: Array[A])(implicit ord: Ordering [A]): Array[A] = {
+
+    def _merge (xs: List[A], ys: List[A]): List[A] = (xs, ys) match {
+      case (Nil, ys) => ys
+      case (xs, Nil) => xs
+      case(x::xs, y::ys) =>
+        if(ord.lt(x,y)) x::_merge(xs, y::ys)
+        else y::_merge(x::xs, ys)
+    }
+
+    def mergeMap[B](f:(B, B)=> B)(ls: List[B]):List[B] = ls match {
+      case Nil => Nil
+      case List(a) => List(a)
+      case a::b::abs => f(a, b) :: mergeMap(f)(abs)
+    }
+
+    def _sort(ls: List[List[A]]): List[List[A]] = ls match {
+      case Nil => List(Nil)
+      case List(xs) => List(xs)
+      case xss => _sort(mergeMap(_merge)(xss))
+    }
+
+    _sort(a.toList.map(x=> List(x))).head.toArray
+  }
 
 }
