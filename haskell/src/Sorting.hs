@@ -48,12 +48,15 @@ mergesort2 as = case (mergesort2' . (map (\a->[a]))) as of
   [] -> []
   (x:_) -> x
 
-
 mergesort2' :: Ord a => [[a]] -> [[a]]
 mergesort2' [] = []
 mergesort2' [as] = [as]
-mergesort2' (as:bs:css) = mergesort2' $ (merge as bs) : (mergesort2' css)
-  where merge :: Ord a => [a] -> [a] -> [a]
+mergesort2' ass = mergesort2' $ unzipmap merge ass
+  where unzipmap :: (a -> a -> a) -> [a] -> [a]
+        unzipmap _ [] = []
+        unzipmap _ [a] = [a]
+        unzipmap f (a:b:cs) = f a b : unzipmap f cs
+        merge :: Ord a => [a] -> [a] -> [a]
         merge [] ys = ys
         merge xs [] = xs
         merge (x:xs) (y:ys) | x < y = x:(merge xs (y:ys))
