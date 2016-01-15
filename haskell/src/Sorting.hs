@@ -62,10 +62,6 @@ mergesort2' ass = mergesort2' $ unzipmap merge ass
         merge (x:xs) (y:ys) | x < y = x:(merge xs (y:ys))
                             | otherwise = y:(merge (x:xs) ys)
 
-
-
-
-
 --top down merge sort
 -- split the list in half
 -- sort two parts with same algorithm
