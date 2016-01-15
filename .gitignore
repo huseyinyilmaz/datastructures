@@ -82,3 +82,5 @@ scala/target
 scala/project/target
 scala/project/project/target/
 scala/.ensime_cache
+
+SortingPerf.html

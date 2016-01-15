@@ -30,6 +30,12 @@ prop_int_sort_mergesort2 is = sort is == Sorting.mergesort2 is
 prop_str_sort_mergesort2 :: [String] -> Bool
 prop_str_sort_mergesort2 is = sort is == Sorting.mergesort2 is
 
+prop_int_sort_mergesort3 :: [Int] -> Bool
+prop_int_sort_mergesort3 is = sort is == Sorting.mergesort3 is
+
+prop_str_sort_mergesort3 :: [String] -> Bool
+prop_str_sort_mergesort3 is = sort is == Sorting.mergesort3 is
+
 main :: IO()
 main = do quickCheck prop_int_sort_quicksort
           quickCheck prop_str_sort_quicksort
@@ -37,3 +43,5 @@ main = do quickCheck prop_int_sort_quicksort
           quickCheck prop_str_sort_mergesort
           quickCheck prop_str_sort_mergesort2
           quickCheck prop_str_sort_mergesort2
+          quickCheck prop_str_sort_mergesort3
+          quickCheck prop_str_sort_mergesort3
