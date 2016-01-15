@@ -1,5 +1,8 @@
 module Heap where
 
+import Data.List(mapAccumL)
+import Data.List(iterate)
+
 data Heap a = Empty | Node{heapLeft::(Heap a), heapValue::a, heapRight::(Heap a)} deriving (Show)
 
 instance Functor Heap where
@@ -20,6 +23,16 @@ full :: Heap a -> Bool
 full Empty = True
 full (Node l@(Node _ _ _) _ r@(Node _ _ _)) = full l && full r && length l == length r
 full _ = False
+
+
+-- [(<number of children in each level of tree>, <number of maximum elements in tree>)]
+--[(1,1),(2,3),(4,7),(8,15),(16,31),(32,63),(64,127),(128,255),(256,511),(512,1023)
+getLevelCounts :: [(Int, Int)]
+getLevelCounts = zip latestTreeLevelCount totalLength
+  where
+    latestTreeLevelCount = iterate (*2) 1
+    totalLength = scanl1 (+) latestTreeLevelCount
+
 
 insert :: Ord a => Heap a -> a -> Heap a
 insert Empty a = Node Empty a Empty
