@@ -40,6 +40,16 @@ test-suite haskell-sort-quickcheck-test
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
+test-suite haskell-heap-quickcheck-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             HeapTest.hs
+  build-depends:       base
+                     , QuickCheck
+                     , haskell
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
 source-repository head
   type:     git
   location: https://github.com/huseyinyilmaz/haskell

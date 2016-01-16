@@ -2,28 +2,33 @@ module Heap where
 
 import Data.List(mapAccumL)
 import Data.List(iterate)
-
-data Heap a = Empty | Node{heapLeft::(Heap a), heapValue::a, heapRight::(Heap a)} deriving (Show)
+import Control.Monad(ap)
+data Heap a = Empty | Node{heapLeft::(Heap a), heapValue::a, heapSize::Int, heapRight::(Heap a)} deriving (Show)
 
 instance Functor Heap where
   fmap _ Empty = Empty
-  fmap f (Node l a r) = Node (fmap f l) (f a) (fmap f r)
+  fmap f (Node l a s r) = Node (fmap f l) (f a) s (fmap f r)
+
+instance Monoid Heap where
+  mempty =
+  mappend =
 
 instance Foldable Heap where
   foldMap _ Empty = mempty
-  foldMap f (Node l a r) = (foldMap f l) `mappend` (f a) `mappend` (foldMap f r)
+  foldMap f (Node l a _ r) = (foldMap f l) `mappend` (f a) `mappend` (foldMap f r)
 
+instance Applicative Heap where
+  pure = return
+  (<*>) = ap
+
+instance Monad Heap where
+  return a =  Node Empty a 1 Empty
+  h >>= f = foldr (mappend) Empty (fmap f h)
 heap :: Heap a
 heap = Empty
 
 heapLength :: Heap b -> Int
 heapLength h = foldr (\_ agg -> agg+1) 0 h
-
-full :: Heap a -> Bool
-full Empty = True
-full (Node l@(Node _ _ _) _ r@(Node _ _ _)) = full l && full r && length l == length r
-full _ = False
-
 
 -- [(<number of children in each level of tree>, <number of maximum elements in tree>)]
 --[(1,1),(2,3),(4,7),(8,15),(16,31),(32,63),(64,127),(128,255),(256,511),(512,1023)
@@ -35,9 +40,10 @@ getLevelCounts = zip latestTreeLevelCount totalLength
 
 
 insert :: Ord a => Heap a -> a -> Heap a
-insert Empty a = Node Empty a Empty
-insert (Node l a' r) a
-  | ((full l) && (full r) && (heapLength l == heapLength r)) || not (full l) = Node (insert l childVal) currentVal r
-  | otherwise = Node l currentVal (insert r childVal)
+insert Empty a = Node Empty a 1 Empty
+insert (Node l a' s r) a
+  | heapSize l <= heapSize r = Node (insert l childVal) currentVal newSize r
+  | otherwise = Node l currentVal newSize (insert l childVal)
   where currentVal = max a a'
         childVal = min a a'
+        newSize = s + 1
