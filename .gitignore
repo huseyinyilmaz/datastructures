@@ -1,3 +1,4 @@
+rust/*/target
 dist
 cabal-dev
 *.o
