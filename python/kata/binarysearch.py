@@ -23,7 +23,7 @@ class BinarySearchTests(unittest.TestCase):
         ls.sort()
         expected = 0
         result = binary_search(ls, ls[expected] if ls else 0)
-        if ls and result:
+        if ls and result is not None:
             self.assertEqual(ls[result], ls[expected])
         else:
             self.assertIsNone(result)
