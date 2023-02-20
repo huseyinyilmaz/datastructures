@@ -1,9 +1,9 @@
-module Main where
+module SortingTest(main) where
 
 import Data.List(sort)
 import Test.QuickCheck
 
-import qualified Sorting as Sorting
+import qualified Sorting
 
 newtype SmallInt = SmallInt Int deriving (Eq,Show)
 
@@ -39,9 +39,9 @@ prop_str_sort_mergesort3 is = sort is == Sorting.mergesort3 is
 main :: IO()
 main = do quickCheck prop_int_sort_quicksort
           quickCheck prop_str_sort_quicksort
+          quickCheck prop_int_sort_mergesort
           quickCheck prop_str_sort_mergesort
-          quickCheck prop_str_sort_mergesort
+          quickCheck prop_int_sort_mergesort2
           quickCheck prop_str_sort_mergesort2
-          quickCheck prop_str_sort_mergesort2
-          quickCheck prop_str_sort_mergesort3
+          quickCheck prop_int_sort_mergesort3
           quickCheck prop_str_sort_mergesort3
