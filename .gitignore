@@ -1,4 +1,5 @@
 rust/*/target
+python/.direnv/
 dist
 cabal-dev
 *.o

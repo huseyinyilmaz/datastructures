@@ -4,7 +4,7 @@ Implements top down scheme
 """
 import unittest
 from hypothesis import given
-from hypothesis import Settings
+from hypothesis import settings
 # from hypothesis import Verbosity
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
@@ -78,28 +78,28 @@ def merge_sort2(xs):
 
 class SortTestCase(unittest.TestCase):
 
-    @given(lists(elements=integers()),
-           settings=Settings(max_examples=500))
+    @given(lists(elements=integers()))
+    @settings(max_examples=500)
     def test_int_sort(self, ls):
         self.assertListEqual(merge_sort(ls[:]), sorted(ls))
 
     #  verbosity=Verbosity.verbose)
-    @given(lists(elements=text()),
-           settings=Settings(max_examples=500))
+    @given(lists(elements=text()))
+    @settings(max_examples=500)
     def test_text_sort(self, ls):
         self.assertListEqual(merge_sort(ls[:]), sorted(ls))
 
 
 class Sort2TestCase(unittest.TestCase):
 
-    @given(lists(elements=integers()),
-           settings=Settings(max_examples=500))
+    @given(lists(elements=integers()))
+    @settings(max_examples=500)
     def test_int_sort(self, ls):
         self.assertListEqual(merge_sort2(ls[:]), sorted(ls))
 
     #  verbosity=Verbosity.verbose)
-    @given(lists(elements=text()),
-           settings=Settings(max_examples=500))
+    @given(lists(elements=text()))
+    @settings(max_examples=500)
     def test_text_sort(self, ls):
         self.assertListEqual(merge_sort2(ls[:]), sorted(ls))
 
