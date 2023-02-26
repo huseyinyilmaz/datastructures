@@ -34,8 +34,6 @@ library
       src
   default-extensions:
       DeriveTraversable
-      FlexibleContexts
-      UndecidableInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Werror
   build-depends:
       QuickCheck
@@ -51,8 +49,6 @@ executable datastructures-exe
       app
   default-extensions:
       DeriveTraversable
-      FlexibleContexts
-      UndecidableInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
@@ -71,8 +67,6 @@ test-suite datastructures-test
       test
   default-extensions:
       DeriveTraversable
-      FlexibleContexts
-      UndecidableInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck

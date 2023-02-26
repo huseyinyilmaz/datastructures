@@ -1,12 +1,11 @@
-module Bst (push, contains, wrap, Tree (..)) where
+module Bst (push, contains, makeTree, Tree (..)) where
 
 import Control.Monad
+import System.Random (Random)
 import Test.QuickCheck
 
-import System.Random(Random)
-
 data Tree a = Empty | Node (Tree a) a (Tree a)
-  deriving (Functor, Foldable, Traversable, Show, Eq)
+  deriving (Functor, Foldable, Traversable, Show)
 
 instance Ord a => Semigroup (Tree a) where
   -- (<>) :: Tree a -> Tree a -> Tree a
@@ -16,20 +15,22 @@ instance Ord a => Semigroup (Tree a) where
 instance Ord a => Monoid (Tree a) where
   mempty = Empty
 
-instance (Ord a, Arbitrary a, Num a, Random a) => Arbitrary (Tree a) where
+instance (Arbitrary a, Random a, Ord a, Num a) => Arbitrary (Tree a) where
   arbitrary = gen 0 100
     where
-      gen :: (Ord a, Num a, Random a) => a -> a -> Gen (Tree a)
+      gen :: (Arbitrary a, Random a, Ord a, Num a) => a -> a -> Gen (Tree a)
       gen minVal maxVal
         | maxVal - minVal < 3 = return Empty
         | otherwise = do
             val <- choose (minVal, maxVal)
             liftM3 Node (gen minVal (val - 1)) (return val) (gen (val + 1) maxVal)
 
-toList 
-instance Eq a => Eq (Tree a) where
-  eq a b = 
+toList :: Tree a -> [a]
+toList Empty = []
+toList (Node left val right) = toList left ++ [val] ++ toList right
 
+instance Eq a => Eq (Tree a) where
+  (==) a b = toList a == toList b
 
 push :: Ord a => Tree a -> a -> Tree a
 push Empty a = Node Empty a Empty
@@ -44,5 +45,5 @@ contains (Node left value right) a
   | a < value = contains right a
   | otherwise = contains left a
 
-wrap :: a -> Tree a
-wrap a = Node Empty a Empty
+makeTree :: a -> Tree a
+makeTree a = Node Empty a Empty

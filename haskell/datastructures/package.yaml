@@ -36,8 +36,6 @@ ghc-options:
 
 default-extensions:
   - DeriveTraversable
-  - FlexibleContexts
-  - UndecidableInstances
 
 library:
   source-dirs: src
