@@ -3,7 +3,14 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: quickcheck-properties-0.1@sha256:3bd0890e84ec4cf1c1e6e475152c2c0d7c85915a051cf4e8bf9ec70c32df735c,1268
+    pantry-tree:
+      sha256: 12264d8a89883b42e78c313792f8cba9af51c8fda915fce34e9780ff6972cf7e
+      size: 550
+  original:
+    hackage: quickcheck-properties-0.1
 snapshots:
 - completed:
     sha256: adbc602422dde10cc330175da7de8609e70afc41449a7e2d6e8b1827aa0e5008

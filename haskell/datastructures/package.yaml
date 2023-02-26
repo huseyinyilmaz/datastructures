@@ -36,9 +36,14 @@ ghc-options:
 
 default-extensions:
   - DeriveTraversable
+  - FlexibleContexts
+  - UndecidableInstances
 
 library:
   source-dirs: src
+  dependencies:
+    - QuickCheck
+    - random
 
 executables:
   datastructures-exe:
@@ -50,6 +55,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - datastructures
+    - QuickCheck
 
 tests:
   datastructures-test:
@@ -61,4 +67,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - QuickCheck
+    - quickcheck-properties
     - datastructures
