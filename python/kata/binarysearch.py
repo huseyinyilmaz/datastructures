@@ -1,5 +1,3 @@
-from typing import List
-from typing import Optional
 import unittest
 from hypothesis import given
 from hypothesis import settings
@@ -8,8 +6,8 @@ from hypothesis.strategies import integers
 
 
 def binary_search(
-    ns: List[int], target: int, start_idx: int = 0, end_idx: int | None = None
-) -> Optional[int]:
+    ns: list[int], target: int, start_idx: int = 0, end_idx: int | None = None
+) -> int | None:
     if end_idx is None:
         end_idx = len(ns)
     # Implement binary_search
