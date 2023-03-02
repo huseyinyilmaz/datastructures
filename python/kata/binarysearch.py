@@ -11,13 +11,26 @@ def binary_search(
     if end_idx is None:
         end_idx = len(ns)
     # Implement binary_search
-    return start_idx
+
+    middle_idx = (start_idx + end_idx) // 2
+
+    if middle_idx == start_idx:
+        return None
+
+    middle = ns[middle_idx]
+
+    if middle == target:
+        return middle_idx
+    elif middle < target:
+        return binary_search(ns, target, middle_idx, end_idx)
+    elif middle > target:
+        return binary_search(ns, target, start_idx, middle_idx)
 
 
 class BinarySearchTests(unittest.TestCase):
     @given(lists(elements=integers()))
     @settings(max_examples=500)
-    def test_search_test(self, ls: List[int]):
+    def test_search_test(self, ls: list[int]):
         ls.sort()
         expected = 0
         result = binary_search(ls, ls[expected] if ls else 0)

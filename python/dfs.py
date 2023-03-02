@@ -7,11 +7,11 @@ RawEdge = Tuple[Start, End, Weight]
 
 
 def dfs(raw_edges: List[RawEdge], start: Start, end: End):
-    edges = {}
+    edges: dict[str, list[tuple[Weight, End]]] = {}
     for s, e, w in raw_edges:
         edges.setdefault(s, []).append((w, e))
 
-    parents = {start: None}
+    parents: dict[str, str | None] = {start: None}
     costs = {}
     frontier = [(0, start)]
     while frontier:
@@ -51,9 +51,9 @@ if __name__ == "__main__":
     ]
     print("=== Dijkstra ===")
     print(f"Raw edges = {edges}")
-    print('=' * 80)
+    print("=" * 80)
     print("A -> E:")
     print(dfs(edges, "A", "E"))
-    print('=' * 80)
+    print("=" * 80)
     print("F -> G:")
     print(dfs(edges, "F", "G"))

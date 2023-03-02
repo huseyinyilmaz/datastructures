@@ -1,17 +1,14 @@
-from typing import List
-from typing import Tuple
-
 Start = End = str
 Weight = int
-RawEdge = Tuple[Start, End, Weight]
+RawEdge = tuple[Start, End, Weight]
 
 
-def bfs(raw_edges: List[RawEdge], start: Start, end: End):
+def bfs(raw_edges: list[RawEdge], start: Start, end: End) -> tuple[str, int]:
     edges = {}
     for s, e, w in raw_edges:
         edges.setdefault(s, []).append((w, e))
 
-    parents = {start: None}
+    parents: dict[str, str | None] = {start: None}
     costs = {}
     frontier = [(0, start)]
     while frontier:
@@ -36,7 +33,7 @@ def bfs(raw_edges: List[RawEdge], start: Start, end: End):
 
 
 if __name__ == "__main__":
-    edges: List[RawEdge] = [
+    edges: list[RawEdge] = [
         ("A", "B", 5),
         ("A", "D", 5),
         ("B", "C", 8),
