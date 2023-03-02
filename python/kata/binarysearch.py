@@ -11,20 +11,7 @@ def binary_search(
     if end_idx is None:
         end_idx = len(ns)
     # Implement binary_search
-
-    middle_idx = (start_idx + end_idx) // 2
-
-    if middle_idx == start_idx:
-        return None
-
-    middle = ns[middle_idx]
-
-    if middle == target:
-        return middle_idx
-    elif middle < target:
-        return binary_search(ns, target, middle_idx, end_idx)
-    elif middle > target:
-        return binary_search(ns, target, start_idx, middle_idx)
+    return None
 
 
 class BinarySearchTests(unittest.TestCase):

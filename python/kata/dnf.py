@@ -17,22 +17,8 @@ def dnf(nums: list[int]) -> tuple[int, int]:
     [high_idx+1:] has values 2
     """
     # implement dnf here.
-    low_idx = middle_idx = 0
-    high_idx = len(nums) - 1
-
-    while middle_idx <= high_idx:
-        middle = nums[middle_idx]
-        if middle == 0:
-            nums[middle_idx], nums[low_idx] = nums[low_idx], nums[middle_idx]
-            middle_idx += 1
-            low_idx += 1
-        elif middle == 1:
-            middle_idx += 1
-        elif middle == 2:
-            nums[middle_idx], nums[high_idx] = nums[high_idx], nums[middle_idx]
-            high_idx -= 1
-            # return first middle element and first high element indexes.
-    return (low_idx, middle_idx)
+    # return first middle element and first high element indexes.
+    return (0, 0)
 
 
 class DNFTests(unittest.TestCase):
